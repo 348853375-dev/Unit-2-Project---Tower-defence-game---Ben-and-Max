@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="YeIJYh6lSRaHbHqIJBvI">
-    <mxGraphModel dx="1640" dy="586" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2047" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -81,6 +81,66 @@
         </mxCell>
         <mxCell id="crizF-tfCIY1WqsTNBrg-28" parent="crizF-tfCIY1WqsTNBrg-25" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+constructor(spawnRate : number, enemiesRemaining : number)&lt;div&gt;+getSpawnRate() : number&lt;/div&gt;&lt;div&gt;+getEnemiesRemaining() : number&lt;/div&gt;&lt;div&gt;+setSpawnRate(newRate : number) : void&lt;/div&gt;&lt;div&gt;+setEnemiesRemaining(newAmount : number) : void&lt;/div&gt;&lt;div&gt;+spawnEnemy(enemyType : string) : Enemy&lt;/div&gt;&lt;div&gt;+startWave() : void&lt;/div&gt;&lt;div&gt;+updateSpawner() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="152" width="320" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-29" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Wave" vertex="1">
+          <mxGeometry height="250" width="320" x="20" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-30" parent="crizF-tfCIY1WqsTNBrg-29" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-waveNumber : number&lt;div&gt;-enemyCount : number&lt;/div&gt;&lt;div&gt;-difficulty : number&lt;/div&gt;" vertex="1">
+          <mxGeometry height="54" width="320" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-31" parent="crizF-tfCIY1WqsTNBrg-29" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="320" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-32" parent="crizF-tfCIY1WqsTNBrg-29" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+constructor(waveNumber : number,&amp;nbsp; enemyCount : number, difficulty : number)&lt;div&gt;+getWaveNumber() : number&lt;/div&gt;&lt;div&gt;+getEnemycount() : number&lt;/div&gt;&lt;div&gt;+getDifficulty() : number&lt;/div&gt;&lt;div&gt;+setWaveNumber(newWave : number) : void&lt;/div&gt;&lt;div&gt;+setEnemyCount(newCount : number) : void&lt;/div&gt;&lt;div&gt;+setDifficulty(newDifficulty : number) : void&lt;/div&gt;&lt;div&gt;+generateEnemies(): void&lt;/div&gt;&lt;div&gt;+increaseDifficulty() : void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="162" width="320" y="88" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-33" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Enemy" vertex="1">
+          <mxGeometry height="318" width="320" x="20" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-34" parent="crizF-tfCIY1WqsTNBrg-33" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-health : number&lt;div&gt;-speed : number&lt;/div&gt;&lt;div&gt;-position : string&lt;/div&gt;&lt;div&gt;-alive : boolean&lt;/div&gt;" vertex="1">
+          <mxGeometry height="74" width="320" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-35" parent="crizF-tfCIY1WqsTNBrg-33" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="320" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-36" parent="crizF-tfCIY1WqsTNBrg-33" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+constructor(health : number, speed : number, position : string, alive : boolean)&lt;div&gt;+getHealth() : number&lt;/div&gt;&lt;div&gt;+getSpeed() : number&lt;/div&gt;&lt;div&gt;+getPosition() : string&lt;/div&gt;&lt;div&gt;+getAlive() : boolean&lt;/div&gt;&lt;div&gt;+setHealth(newHealth : number) : void&lt;/div&gt;&lt;div&gt;+setSpeed(newSpeed : number) : void&lt;/div&gt;&lt;div&gt;+setPosition(newPosition : string) : void&lt;/div&gt;&lt;div&gt;+setAlive(status : boolean) : void&lt;/div&gt;&lt;div&gt;+move() : void&lt;/div&gt;&lt;div&gt;+takeDamage(amount : number) : void&lt;/div&gt;&lt;div&gt;+die() : void&lt;/div&gt;&lt;div&gt;+reachBase() : void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="210" width="320" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-37" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Tower" vertex="1">
+          <mxGeometry height="400" width="320" x="430" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-38" parent="crizF-tfCIY1WqsTNBrg-37" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-range : number&lt;div&gt;-damage : number&lt;/div&gt;&lt;div&gt;-attackSpeed : number&lt;/div&gt;&lt;div&gt;-cost : number&lt;/div&gt;&lt;div&gt;-position : string&lt;/div&gt;&lt;div&gt;-attackType : string&lt;/div&gt;" vertex="1">
+          <mxGeometry height="104" width="320" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-39" parent="crizF-tfCIY1WqsTNBrg-37" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="320" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-40" parent="crizF-tfCIY1WqsTNBrg-37" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+constructor(range : number, damage: number, attackSpeed : number, cost : number, position : string, attackType : string)&lt;div&gt;+getRange() : number&lt;/div&gt;&lt;div&gt;+getDamage() : number&lt;/div&gt;&lt;div&gt;+getCost() : number&lt;/div&gt;&lt;div&gt;+getPosition() : string&lt;/div&gt;&lt;div&gt;+getAttackType() : string&lt;/div&gt;&lt;div&gt;+setRange(newRange : number)&amp;nbsp; : void&lt;/div&gt;&lt;div&gt;+setDamage(newDamage : number) : void&lt;/div&gt;&lt;div&gt;+setAttackSpeed(newSpeed : number) : void&lt;/div&gt;&lt;div&gt;+setCost(newCost : number) : void&lt;/div&gt;&lt;div&gt;+setPosition(newPosition : string) : void&lt;/div&gt;&lt;div&gt;+setAttackType(newType : string) : void&lt;/div&gt;&lt;div&gt;+detectEnemy(enemies : Enemy) : Enemy&lt;/div&gt;&lt;div&gt;+attack(target : Enemy) : Projectile&lt;/div&gt;&lt;div&gt;+upgrade() : void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="262" width="320" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-41" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Projectile" vertex="1">
+          <mxGeometry height="310" width="320" x="430" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-42" parent="crizF-tfCIY1WqsTNBrg-41" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-damage : number&lt;div&gt;-speed : number&lt;/div&gt;&lt;div&gt;-position : string&lt;/div&gt;&lt;div&gt;-active : boolean&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="74" width="320" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-43" parent="crizF-tfCIY1WqsTNBrg-41" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="320" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-44" parent="crizF-tfCIY1WqsTNBrg-41" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+constructor(damage : number, speed : number, position : string, active : boolean)&lt;div&gt;+getDamage() : number&lt;/div&gt;&lt;div&gt;+getSpeed() : number&lt;/div&gt;&lt;div&gt;+getPosition() : string&lt;/div&gt;&lt;div&gt;+getActive() : boolean&lt;/div&gt;&lt;div&gt;+setDamage(newDamage : number) : void&lt;/div&gt;&lt;div&gt;+setSpeed(newSpeed : number) : void&lt;/div&gt;&lt;div&gt;+setPosition(newPosition : string) : void&lt;/div&gt;&lt;div&gt;+setActive(status : boolean) : void&lt;/div&gt;&lt;div&gt;+move() : void&lt;/div&gt;&lt;div&gt;+hitTarget() : void&lt;/div&gt;&lt;div&gt;+applyDamage(enemy : Enemy) : void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="202" width="320" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-45" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Base" vertex="1">
+          <mxGeometry height="200" width="320" x="430" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-46" parent="crizF-tfCIY1WqsTNBrg-45" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-health : number&lt;div&gt;-position : string&lt;/div&gt;" vertex="1">
+          <mxGeometry height="44" width="320" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-47" parent="crizF-tfCIY1WqsTNBrg-45" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="320" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="crizF-tfCIY1WqsTNBrg-48" parent="crizF-tfCIY1WqsTNBrg-45" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;div&gt;&lt;div&gt;+constructor(health : number, position : string)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;+getHealth() : number&lt;/div&gt;&lt;div&gt;+getPosition() : string&lt;/div&gt;&lt;div&gt;+setHealth(newHealth : number) : void&lt;/div&gt;&lt;div&gt;+setPosition(newPosition : string) : void&lt;/div&gt;&lt;div&gt;+takeDamage(amount : number) : void&lt;/div&gt;&lt;div&gt;+isDestroyed() : boolean&lt;/div&gt;" vertex="1">
+          <mxGeometry height="122" width="320" y="78" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
