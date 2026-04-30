@@ -1,6 +1,6 @@
 import { BaseModel } from "./BaseModel.js";
 import { GameImage } from "./GameImage.js";
-import { Drawable } from "./Drawable.js";
+import { Drawable } from "./Drawable.js"
 
 class BaseController implements Drawable {
     private _baseModel: BaseModel;
@@ -16,9 +16,7 @@ class BaseController implements Drawable {
             ctx.drawImage(
                 this._gameImage.img,
                 this._baseModel.x,
-                this._baseModel.y,
-                80,
-                80
+                this._baseModel.y, 80, 80
             );
         }
     }
