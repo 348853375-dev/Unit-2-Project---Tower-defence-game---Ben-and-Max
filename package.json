@@ -1,0 +1,24 @@
+{
+  "name": "unit-2-project---tower-defence-game---ben-and-max",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type" : "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/348853375-dev/Unit-2-Project---Tower-defence-game---Ben-and-Max.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/348853375-dev/Unit-2-Project---Tower-defence-game---Ben-and-Max/issues"
+  },
+  "homepage": "https://github.com/348853375-dev/Unit-2-Project---Tower-defence-game---Ben-and-Max#readme",
+  "dependencies": {
+    "typescript": "^6.0.3"
+  }
+}
