@@ -1,6 +1,6 @@
 import { BaseModel } from "./BaseModel.js";
 import { GameImage } from "./GameImage.js";
-import { Drawable } from "./Drawable.js"
+import { Drawable } from "./drawable.js";
 
 class BaseController implements Drawable {
     private _baseModel: BaseModel;
