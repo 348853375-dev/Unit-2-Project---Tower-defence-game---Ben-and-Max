@@ -1,40 +1,24 @@
 import { GameObject } from "./GameObject.js";
-import { DamageableUnit } from "./DamageableUnit.js";
-
 /**
  * Parent class for all tower models.
  * Stores the shared data that every tower needs.
  */
-abstract class TowerModel extends GameObject {
-    public static readonly TYPE_SINGLE_TARGET: string = "single target";
-    public static readonly TYPE_AOE: string = "aoe";
-
-    protected _name: string;
-    protected _damage: number;
-    protected _range: number;
-    protected _cost: number;
-    protected _attackCooldown: number;
-    protected _towerType: string;
-
+class TowerModel extends GameObject {
+    static TYPE_SINGLE_TARGET = "single target";
+    static TYPE_AOE = "aoe";
+    _name;
+    _damage;
+    _range;
+    _cost;
+    _attackCooldown;
+    _towerType;
     /**
      * Creates a TowerModel.
      * Precondition: width, height, damage, range, cost, and attackCooldown should be greater than 0.
      * Postcondition: A tower is created with position, size, and tower stats.
      */
-    constructor(
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        name: string,
-        damage: number,
-        range: number,
-        cost: number,
-        attackCooldown: number,
-        towerType: string
-    ) {
+    constructor(x, y, width, height, name, damage, range, cost, attackCooldown, towerType) {
         super(x, y, width, height);
-
         this._name = name;
         this._damage = damage;
         this._range = range;
@@ -42,9 +26,6 @@ abstract class TowerModel extends GameObject {
         this._attackCooldown = attackCooldown;
         this._towerType = towerType;
     }
-
-    public abstract attack(units: DamageableUnit[]): void;
-
     /**
      * Finds all units inside this tower's range.
      * Precondition: units should contain valid positions.
@@ -52,12 +33,11 @@ abstract class TowerModel extends GameObject {
      * @param units The units to check
      * @returns The units within range
      */
-    protected getUnitsInRange(units: DamageableUnit[]): DamageableUnit[] {
-        return units.filter((unit: DamageableUnit) => {
+    getUnitsInRange(units) {
+        return units.filter((unit) => {
             return this.getDistanceToUnit(unit) <= this._range;
         });
     }
-
     /**
      * Finds the distance between this tower and a unit.
      * Precondition: unit must have x, y, width, and height.
@@ -65,42 +45,33 @@ abstract class TowerModel extends GameObject {
      * @param unit The unit to measure distance to
      * @returns The distance between the tower and the unit
      */
-    protected getDistanceToUnit(unit: DamageableUnit): number {
-        const towerCenterX: number = this._x + this._width / 2;
-        const towerCenterY: number = this._y + this._height / 2;
-
-        const unitCenterX: number = unit.x + unit.width / 2;
-        const unitCenterY: number = unit.y + unit.height / 2;
-
-        const distanceX: number = towerCenterX - unitCenterX;
-        const distanceY: number = towerCenterY - unitCenterY;
-
+    getDistanceToUnit(unit) {
+        const towerCenterX = this._x + this._width / 2;
+        const towerCenterY = this._y + this._height / 2;
+        const unitCenterX = unit.x + unit.width / 2;
+        const unitCenterY = unit.y + unit.height / 2;
+        const distanceX = towerCenterX - unitCenterX;
+        const distanceY = towerCenterY - unitCenterY;
         return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
     }
-
-    public get name(): string {
+    get name() {
         return this._name;
     }
-
-    public get damage(): number {
+    get damage() {
         return this._damage;
     }
-
-    public get range(): number {
+    get range() {
         return this._range;
     }
-
-    public get cost(): number {
+    get cost() {
         return this._cost;
     }
-
-    public get attackCooldown(): number {
+    get attackCooldown() {
         return this._attackCooldown;
     }
-
-    public get towerType(): string {
+    get towerType() {
         return this._towerType;
     }
 }
-
 export { TowerModel };
+//# sourceMappingURL=TowerModel.js.map

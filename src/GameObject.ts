@@ -9,8 +9,8 @@ class GameObject {
 
     /**
      * Creates a GameObject with position and size.
-     * Pre: width and height should be greater than 0.
-     * Post: A GameObject is created with x, y, width, and height.
+     * Precondition: width and height should be greater than 0.
+     * Postcondition: A GameObject is created with x, y, width, and height.
      * @param x The object's x-coordinate
      * @param y The object's y-coordinate
      * @param width The object's width
@@ -19,7 +19,7 @@ class GameObject {
     protected constructor(x: number, y: number, width: number, height: number) {
         this._x = x;
         this._y = y;
-        this._width = width;
+        this._width = width; 
         this._height = height;
     }
 
