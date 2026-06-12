@@ -1,58 +1,109 @@
-import { Enemy } from "./Enemy.js";
-
+/**
+ * A Wave stores the information about one wave of enemies: which
+ * enemy types spawn, how fast they spawn, and how long the player
+ * gets to build before the wave starts.
+ *
+ * The Wave is data only. The Spawner is the machine that reads this
+ * data and actually creates the enemies (Wave = the recipe,
+ * Spawner = the cook).
+ *
+ * Enemy types used: "robot1", "robot2", "robot3", "boss".
+ */
 class Wave {
-    private waveNumber : number;
-    private enemyCount : number;
-    private difficulty : number;
+    private _waveNumber: number;
+    private _enemyTypes: string[];
+    private _spawnRate: number;
+    private _startDelay: number;
 
-    constructor(waveNumber : number, enemyCount : number, difficulty : number) {
-        this.waveNumber = waveNumber;
-        this.enemyCount = enemyCount;
-        this.difficulty = difficulty;
+    /**
+     * Creates a wave.
+     *
+     * Precondition: enemyTypes should contain at least 1 type,
+     * spawnRate should be greater than 0, and startDelay should be 0
+     * or greater.
+     * Postcondition: A wave is created with its settings.
+     *
+     * @param waveNumber Which wave this is (1 to 4)
+     * @param enemyTypes The enemy types to spawn, in order
+     * @param spawnRate Milliseconds between each spawn
+     * @param startDelay Milliseconds of build time before spawning starts
+     */
+    constructor(waveNumber: number, enemyTypes: string[], spawnRate: number, startDelay: number) {
+        this._waveNumber = waveNumber;
+        this._enemyTypes = enemyTypes.slice();
+        this._spawnRate = Math.max(1, spawnRate);
+        this._startDelay = Math.max(0, startDelay);
     }
 
-    getWaveNumber() : number {
-        return this.waveNumber;
+    /** Which wave this is */
+    public get waveNumber(): number {
+        return this._waveNumber;
     }
 
-    getEnemyCount() : number {
-        return this.enemyCount;
+    /** The enemy types this wave spawns, in order */
+    public get enemyTypes(): string[] {
+        return this._enemyTypes.slice();
     }
 
-    getDifficulty() : number {
-        return this.difficulty;
+    /** Milliseconds between each spawn */
+    public get spawnRate(): number {
+        return this._spawnRate;
     }
 
-    setWaveNumber(newWave : number) : void {
-        this.waveNumber = newWave;
+    /** Milliseconds of build time before the wave starts spawning */
+    public get startDelay(): number {
+        return this._startDelay;
     }
 
-    setEnemyCount(newCount : number) : void {
-        this.enemyCount = newCount;
+    /** The number of enemies in this wave */
+    public get enemyCount(): number {
+        return this._enemyTypes.length;
     }
 
-    setDifficulty(newDifficulty : number) : void {
-        this.difficulty = newDifficulty;
-    }
+    /**
+     * Builds the level's four waves from the project plan:
+     *
+     * Wave 1: only Robot 001, spawned slowly, 15 seconds of build time
+     * Wave 2: Robots 001 and 002, medium pace, 10 seconds of build time
+     * Wave 3: all 3 robots, very fast pace, 7 seconds of build time
+     * Wave 4: all 3 robots fast, then the BOSS, 5 seconds of build time
+     *
+     * Precondition: None.
+     * Postcondition: Returns the four waves in order.
+     *
+     * @returns The level's waves, ready for the spawner
+     */
+    public static createLevelWaves(): Wave[] {
+        const wave1: Wave = new Wave(
+            1,
+            ["robot1", "robot1", "robot1", "robot1", "robot1"],
+            2000,
+            15000
+        );
 
-    generateEnemies() : Enemy[] {
-    const enemies : Enemy[] = [];
+        const wave2: Wave = new Wave(
+            2,
+            ["robot1", "robot1", "robot2", "robot1", "robot2", "robot1", "robot2"],
+            1400,
+            10000
+        );
 
-        for (let i = 0; i < this.enemyCount; i++) {
-            const enemy = new Enemy(
-                100 * this.difficulty,   // health scaling
-                1 + this.difficulty,     // speed scaling
-                0,                       // x
-                0,                       // y
-                true                     // alive
-            );
-            enemies.push(enemy);
-        }
+        const wave3: Wave = new Wave(
+            3,
+            ["robot1", "robot2", "robot1", "robot3", "robot2", "robot1", "robot3", "robot2", "robot3"],
+            800,
+            7000
+        );
 
-        return enemies;
-    }   
+        const wave4: Wave = new Wave(
+            4,
+            ["robot2", "robot3", "robot2", "robot3", "robot3", "boss"],
+            800,
+            5000
+        );
 
-    increaseDifficulty() : void {
-        this.difficulty += 1;
+        return [wave1, wave2, wave3, wave4];
     }
 }
+
+export { Wave };

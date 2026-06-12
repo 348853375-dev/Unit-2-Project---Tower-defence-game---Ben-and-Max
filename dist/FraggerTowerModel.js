@@ -1,23 +1,44 @@
 import { TowerModel } from "./TowerModel.js";
+import { Projectile } from "./projectileClass.js";
 /**
  * FraggerTowerModel is the second tower.
  * It has slow attack speed, low range, low damage, and AOE attacks.
+ * It costs 250 and is good against groups of weak enemies.
  */
 class FraggerTowerModel extends TowerModel {
+    /**
+     * Creates a Fragger tower.
+     *
+     * Precondition: width and height should be greater than 0.
+     * Postcondition: A Fragger tower is created with its default stats.
+     *
+     * @param x The tower's x-coordinate
+     * @param y The tower's y-coordinate
+     * @param width The tower's width
+     * @param height The tower's height
+     */
     constructor(x, y, width, height) {
         super(x, y, width, height, "Fragger", 8, 100, 250, 1500, TowerModel.TYPE_AOE);
     }
     /**
-     * Attacks every enemy unit inside range.
-     * Precondition: units should contain damageable enemy objects.
-     * Postcondition: All units in range take damage.
-     * @param units The enemy units that may be attacked
+     * Attacks the first enemy in range with an AOE projectile that
+     * damages every enemy near the impact point.
+     *
+     * Precondition: units should contain the enemies currently in the game.
+     * Postcondition: Returns a new AOE projectile aimed at the target, or
+     * null if no enemy was in range.
+     *
+     * @param units All enemies currently in the game
+     * @returns The projectile fired, or null if no enemy was in range
      */
     attack(units) {
         const unitsInRange = this.getUnitsInRange(units);
-        for (const unit of unitsInRange) {
-            unit.takeDamage(this._damage);
+        const target = unitsInRange[0];
+        if (target === undefined) {
+            return null;
         }
+        const projectileSize = 12;
+        return new Projectile(this.centerX - projectileSize / 2, this.centerY - projectileSize / 2, projectileSize, projectileSize, this._damage, 5, target, Projectile.TYPE_AOE, 70);
     }
 }
 export { FraggerTowerModel };

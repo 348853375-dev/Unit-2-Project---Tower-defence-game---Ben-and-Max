@@ -1,23 +1,43 @@
 import { TowerModel } from "./TowerModel.js";
+import { Projectile } from "./projectileClass.js";
 /**
  * CommandoTowerModel is the third tower.
- * It has high attack speed, high range, medium damage, and single target attacks.
+ * It has high attack speed, high range, medium damage, and single target
+ * attacks. It costs 500 and is the main damage dealer for single enemies.
  */
 class CommandoTowerModel extends TowerModel {
+    /**
+     * Creates a Commando tower.
+     *
+     * Precondition: width and height should be greater than 0.
+     * Postcondition: A Commando tower is created with its default stats.
+     *
+     * @param x The tower's x-coordinate
+     * @param y The tower's y-coordinate
+     * @param width The tower's width
+     * @param height The tower's height
+     */
     constructor(x, y, width, height) {
         super(x, y, width, height, "Commando", 15, 220, 500, 400, TowerModel.TYPE_SINGLE_TARGET);
     }
     /**
-     * Attacks the first enemy unit inside range.
-     * Precondition: units should contain damageable enemy objects.
-     * Postcondition: The first unit in range takes damage.
-     * @param units The enemy units that may be attacked
+     * Attacks the first enemy in range with a fast single target projectile.
+     *
+     * Precondition: units should contain the enemies currently in the game.
+     * Postcondition: Returns a new projectile aimed at the target, or null
+     * if no enemy was in range.
+     *
+     * @param units All enemies currently in the game
+     * @returns The projectile fired, or null if no enemy was in range
      */
     attack(units) {
         const unitsInRange = this.getUnitsInRange(units);
-        if (unitsInRange.length > 0) {
-            unitsInRange[0].takeDamage(this._damage);
+        const target = unitsInRange[0];
+        if (target === undefined) {
+            return null;
         }
+        const projectileSize = 7;
+        return new Projectile(this.centerX - projectileSize / 2, this.centerY - projectileSize / 2, projectileSize, projectileSize, this._damage, 10, target, Projectile.TYPE_SINGLE_TARGET, 0);
     }
 }
 export { CommandoTowerModel };

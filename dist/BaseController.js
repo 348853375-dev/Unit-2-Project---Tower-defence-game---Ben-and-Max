@@ -1,7 +1,7 @@
 import { BaseModel } from "./BaseModel.js";
 import { GameImage } from "./GameImage.js";
 /**
- * The BaseController controls the base/crate in the game.
+ * The BaseController controls the base/weapon crate in the game.
  * It connects the BaseModel to the canvas image.
  */
 class BaseController {
@@ -11,8 +11,10 @@ class BaseController {
     _gameImage;
     /**
      * Creates a BaseController.
-     * Pre: width, height, and health should be greater than 0.
-     * Post: A base model and image are created.
+     *
+     * Precondition: width, height, and health should be greater than 0.
+     * Postcondition: A base model and image are created.
+     *
      * @param x The base's x-coordinate
      * @param y The base's y-coordinate
      * @param width The base's width
@@ -26,8 +28,12 @@ class BaseController {
     }
     /**
      * Draws the base on the canvas.
-     * Pre: canvas and ctx must exist.
-     * Post: The base image is drawn if it has loaded.
+     *
+     * Precondition: canvas and ctx must exist.
+     * Postcondition: The base image is drawn if it has loaded. If the
+     * image has not loaded yet, a brown square is drawn instead so the
+     * base is never invisible.
+     *
      * @param canvas The canvas where the base is drawn
      * @param ctx The canvas drawing context
      */
@@ -35,11 +41,19 @@ class BaseController {
         if (this._gameImage.complete) {
             ctx.drawImage(this._gameImage.img, this._gameImage.x, this._gameImage.y, this._gameImage.width, this._gameImage.height);
         }
+        else {
+            ctx.save();
+            ctx.fillStyle = "saddlebrown";
+            ctx.fillRect(this._baseModel.x, this._baseModel.y, this._baseModel.width, this._baseModel.height);
+            ctx.restore();
+        }
     }
     /**
      * Damages the base.
-     * Pre: amount should be greater than 0.
-     * Post: The base's health is reduced.
+     *
+     * Precondition: amount should be greater than 0.
+     * Postcondition: The base's health is reduced.
+     *
      * @param amount The amount of damage
      */
     takeDamage(amount) {
@@ -47,6 +61,7 @@ class BaseController {
     }
     /**
      * Checks if the base is destroyed.
+     *
      * @returns true if the base has no health left, false otherwise
      */
     isDestroyed() {
