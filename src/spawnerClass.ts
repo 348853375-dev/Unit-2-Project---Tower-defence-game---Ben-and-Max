@@ -1,183 +1,252 @@
+import { DamageableUnit } from "./DamageableUnit.js";
+
 /**
- * Class for the enemy spawner 
- * The spawner is generates enemies during a wave.
- * 
+ * A function that creates one enemy of the given type.
+ *
+ * The GameController provides this function using Max's enemy classes.
+ * This way the Spawner never needs to import the enemy classes directly,
+ * so it compiles and works even while the enemy classes are still being
+ * written.
+ */
+type EnemyFactory = (enemyType: string) => DamageableUnit;
+
+/**
+ * Class for the enemy spawner
+ * The spawner generates enemies during a wave.
+ *
  * 1. Controls how fast enemies are spawned
  * 2. Tracks how many enemies are left to spawn
  * 3. Creates enemies of different types
  * 4. Starts and manages enemy waves
- * 
+ *
  * What the class does
- * 
- * 1. Track spawn rate 
+ *
+ * 1. Track spawn rate
  * 2. Track remaining enemies
  * 3. Spawn enemies into the game
  * 4. Control waves
- * 
  */
 class Spawner {
 
-    // used to control how often the enemies are spawned
+    // used to control how often the enemies are spawned (milliseconds between spawns)
     private _spawnRate: number;
 
-    // stores how many enemies are left to spawn in the current wave
-    private _enemiesRemaining: number;
+    // the enemy types left to spawn in the current wave, in order
+    private _enemyQueue: string[];
+
+    // the function used to create enemies (provided by the GameController)
+    private _createEnemy: EnemyFactory;
+
+    // the time the wave is allowed to start spawning (start delay)
+    private _spawningStartTime: number;
+
+    // the time the last enemy was spawned
+    private _lastSpawnTime: number;
+
+    // true while a wave is running
+    private _isActive: boolean;
 
     /**
      * Creates a Spawner object
-     * 
+     *
      * Preconditions:
-     * 
-     * 1. the spawn rate must be greater than 0
-     * 2. the enemies remaining must be greater or equal to 0
-     * 
+     *
+     * 1. createEnemy must be a function that returns a new enemy
+     *
      * Postconditions:
-     * 
-     * 1. spawner starts with the correct spawn rate and enemy count
-     * 
-     * @param spawnRate how fast enemies spawn 
-     * @param enemiesRemaining number of enemies to spawn in the wave
+     *
+     * 1. spawner is created and waits for startWave to be called
+     *
+     * @param createEnemy the function used to create one enemy of a given type
      */
+    constructor(createEnemy: EnemyFactory) {
+        this._createEnemy = createEnemy;
 
-    constructor(spawnRate: number, enemiesRemaining: number) {
-        this._spawnRate = spawnRate;
-        this._enemiesRemaining = enemiesRemaining;
+        this._spawnRate = 1000;
+        this._enemyQueue = [];
+        this._spawningStartTime = 0;
+        this._lastSpawnTime = 0;
+        this._isActive = false;
     }
 
     /**
      * Gets the spawn rate
-     * 
+     *
      * Preconditions:
-     * 
+     *
      * 1. spawner object exists
-     * 
+     *
      * Postconditions:
-     * 
+     *
      * 1. returns the current spawn rate
-     * 
-     * @returns spawn rate value
+     *
+     * @returns spawn rate value in milliseconds between spawns
      */
-
     public get SpawnRate(): number {
         return this._spawnRate;
     }
 
     /**
      * Sets the spawn rate
-     * 
+     *
      * Preconditions:
-     * 
+     *
      * 1. the new rate must be greater than 0
-     * 
+     *
      * Postconditions:
-     * 
+     *
      * 1. spawn rate is updated
-     * 
-     * @param newRate new spawn rate value
+     *
+     * @param newRate new spawn rate value in milliseconds
      */
-
     public set SpawnRate(newRate: number) {
-        this._spawnRate = newRate;
+        this._spawnRate = Math.max(1, newRate);
     }
 
     /**
      * Gets the number of enemies remaining
-     * 
+     *
      * Preconditions:
-     * 
+     *
      * 1. spawner object exists
-     * 
+     *
      * Postconditions:
-     * 
+     *
      * 1. returns the number of enemies left to spawn
-     * 
+     *
      * @returns number of enemies remaining
      */
-
     public get EnemiesRemaining(): number {
-        return this._enemiesRemaining;
+        return this._enemyQueue.length;
     }
 
     /**
-     * Sets the number of enemies remaining
-     * 
+     * Checks if the current wave has finished spawning
+     *
      * Preconditions:
-     * 
-     * 1. the new amouont must be greater or equal to 0
-     * 
+     *
+     * 1. spawner object exists
+     *
      * Postconditions:
-     * 
-     * 1. enemies remaining is updated
-     * 
-     * @param newAmount new number of enemies
+     *
+     * 1. returns true if every enemy in the wave has been spawned
+     *
+     * @returns true if there is nothing left to spawn
      */
-
-    
-    // Reason for the missing class is that max is currently working on the enemy class and it is not fully added yet,
-    // the code breaks when I add a class that does not exist yet
-    public set EnemiesRemaining(newAmount: number) {
-        this._enemiesRemaining = newAmount;
-    }
-
-    /**
-     * Spawns a new enemy
-     * 
-     * Preconditions:
-     * 
-     * 1. the enemy type must be a real type ( normal, fast, boss)
-     * 2. the enemies remaining must be greater than 0
-     * 
-     * Postconditions:
-     * 
-     * 1. a new enemy object is created
-     * 2. the enemies remaining decreases by 1
-     * 
-     * @param enemyType type of enemy to spawn
-     * @returns a new Enemy object
-     */
-
-    // Reason for the missing class is that max is currently working on the enemy class and it is not fully added yet,
-    // the code breaks when I add a class that does not exist yet
-    public spawnEnemy(enemyType: string) {
-        this._enemiesRemaining--;
-
-        // placeholder for now until all enemies are made
-        return { type: enemyType };
+    public isFinishedSpawning(): boolean {
+        return this._enemyQueue.length === 0;
     }
 
     /**
      * Starts a new wave of enemies
-     * 
+     *
      * Preconditions:
-     * 
-     * 1. enemiesRemaining must be greater than 0
-     * 
+     *
+     * 1. enemyTypes must contain at least 1 enemy type
+     * 2. spawnRate must be greater than 0
+     * 3. startDelay must be greater or equal to 0
+     * 4. currentTime should come from requestAnimationFrame
+     *
      * Postconditions:
-     * 
-     * 1. spawning process begins
-     * 
+     *
+     * 1. the spawner waits for the start delay, then begins spawning
+     *    one enemy from the queue every spawnRate milliseconds
+     *
+     * @param enemyTypes the enemy types to spawn this wave, in order
+     * @param spawnRate milliseconds between each spawn
+     * @param startDelay milliseconds to wait before the first spawn
+     * @param currentTime the current animation time in milliseconds
      */
-
-    public startWave(): void {
+    public startWave(
+        enemyTypes: string[],
+        spawnRate: number,
+        startDelay: number,
+        currentTime: number
+    ): void {
+        this._enemyQueue = enemyTypes.slice();
+        this._spawnRate = Math.max(1, spawnRate);
+        this._spawningStartTime = currentTime + Math.max(0, startDelay);
+        this._lastSpawnTime = 0;
+        this._isActive = true;
     }
 
     /**
      * Updates the spawner over time
-     * 
+     *
      * Preconditions:
-     * 
-     * 1. spawner object exists
-     * 
+     *
+     * 1. currentTime should come from requestAnimationFrame
+     *
      * Postconditions:
-     * 
+     *
      * 1. spawner checks if it should spawn a new enemy
-     * 2. calls spawnEnemy if conditions are met
-     * 
+     * 2. calls spawnEnemy if the start delay is over and enough
+     *    time has passed since the last spawn
+     *
+     * @param currentTime the current animation time in milliseconds
+     * @returns the new enemy that was spawned, or null if it is not time yet
      */
+    public updateSpawner(currentTime: number): DamageableUnit | null {
+        if (!this._isActive || this._enemyQueue.length === 0) {
+            return null;
+        }
 
-    public updateSpawner(): void {
+        // still waiting for the wave's start delay
+        if (currentTime < this._spawningStartTime) {
+            return null;
+        }
+
+        // not enough time has passed since the last spawn
+        if (currentTime - this._lastSpawnTime < this._spawnRate) {
+            return null;
+        }
+
+        this._lastSpawnTime = currentTime;
+        return this.spawnEnemy();
+    }
+
+    /**
+     * Spawns a new enemy
+     *
+     * Preconditions:
+     *
+     * 1. the enemy queue must not be empty
+     *
+     * Postconditions:
+     *
+     * 1. a new enemy object is created using the next type in the queue
+     * 2. the enemies remaining decreases by 1
+     *
+     * @returns a new enemy, or null if the queue was empty
+     */
+    private spawnEnemy(): DamageableUnit | null {
+        const enemyType: string | undefined = this._enemyQueue.shift();
+
+        if (enemyType === undefined) {
+            return null;
+        }
+
+        return this._createEnemy(enemyType);
+    }
+
+    /**
+     * Stops the spawner and clears the wave
+     *
+     * Preconditions:
+     *
+     * 1. spawner object exists
+     *
+     * Postconditions:
+     *
+     * 1. spawning stops and the queue is emptied (used on restart)
+     */
+    public reset(): void {
+        this._enemyQueue = [];
+        this._isActive = false;
+        this._lastSpawnTime = 0;
+        this._spawningStartTime = 0;
     }
 }
 
-// export the Spawner class
-export { Spawner };
+// export the Spawner class and the factory type
+export { Spawner, EnemyFactory };

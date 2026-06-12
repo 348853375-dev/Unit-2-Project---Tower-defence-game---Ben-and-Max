@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Robot Tower Defence</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+
+        <h1>Robot Tower Defence</h1>
+
+        <div id="game-wrapper">
+            <canvas id="game-canvas">Error</canvas>
+
+            <div id="menu">
+                <h2>Defend the Weapon Factory!</h2>
+                <p>Robots are trying to steal the weapons. Place towers to stop them before they reach the crate. Survive all 4 waves and beat the boss to win!</p>
+                <button id="start-button">START</button>
+            </div>
+        </div>
+
+        <p id="controls">
+            Click = place tower | 1 = Scout ($100) | 2 = Fragger ($250) | 3 = Commando ($500) | 4 = Tank ($1000) | F = Freeze ($150) | R = Restart
+        </p>
+
+        <script type="module" src="./dist/index.js"></script>
+    </body>
+</html>
