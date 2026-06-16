@@ -1,3 +1,4 @@
+// BEN WHIMAN
 /**
  * Parent class for all objects that have a position and size.
  *

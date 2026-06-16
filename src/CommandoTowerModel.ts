@@ -1,3 +1,5 @@
+// BEN WHITMAN
+// import the classes needed for the commando tower to work properly 
 import { TowerModel } from "./TowerModel.js";
 import { DamageableUnit } from "./DamageableUnit.js";
 import { Projectile } from "./projectileClass.js";

@@ -1,3 +1,6 @@
+// BEN WITMAN
+/// import the BaseModel, GameImage, and Drawable class, to make sure that the game has the draw method,
+//  is able to draw images and has the data/properties needed to run
 import { BaseModel } from "./BaseModel.js";
 import { GameImage } from "./GameImage.js";
 import { Drawable } from "./drawable.js";
@@ -26,14 +29,7 @@ class BaseController implements Drawable {
      * @param health The base's starting health
      * @param filename The image file used for the base
      */
-    constructor(
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        health: number,
-        filename: string
-    ) {
+    constructor(x: number, y: number, width: number, height: number, health: number, filename: string) {
         this._baseModel = new BaseModel(x, y, width, height, health);
         this._gameImage = new GameImage(filename, this._baseModel);
     }
@@ -51,22 +47,11 @@ class BaseController implements Drawable {
      */
     public draw(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D): void {
         if (this._gameImage.complete) {
-            ctx.drawImage(
-                this._gameImage.img,
-                this._gameImage.x,
-                this._gameImage.y,
-                this._gameImage.width,
-                this._gameImage.height
-            );
+            ctx.drawImage(this._gameImage.img, this._gameImage.x, this._gameImage.y, this._gameImage.width, this._gameImage.height);
         } else {
             ctx.save();
             ctx.fillStyle = "saddlebrown";
-            ctx.fillRect(
-                this._baseModel.x,
-                this._baseModel.y,
-                this._baseModel.width,
-                this._baseModel.height
-            );
+            ctx.fillRect(this._baseModel.x, this._baseModel.y, this._baseModel.width, this._baseModel.height);
             ctx.restore();
         }
     }

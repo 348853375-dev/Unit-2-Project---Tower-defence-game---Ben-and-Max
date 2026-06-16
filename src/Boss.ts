@@ -1,3 +1,4 @@
+// importt's the three different eneimes, to use thier stats
 import { Enemy } from "./Enemy.js";
 import { Enemy2 } from "./Enemy2.js";
 import { Enemy3 } from "./Enemy3.js";

@@ -1,3 +1,4 @@
+// BEN WHITMAN
 /**
  * DamageableUnit represents any game unit that can be attacked by a
  * tower or projectile.

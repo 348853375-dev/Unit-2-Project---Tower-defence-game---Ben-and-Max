@@ -1,3 +1,4 @@
+// BEN WHITMAN
 import { GameObject } from "./GameObject.js";
 
 /**

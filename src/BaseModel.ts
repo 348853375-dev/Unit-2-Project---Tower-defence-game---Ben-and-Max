@@ -1,3 +1,5 @@
+// BEN WHITMAN
+// imports the game object needed for the game to run
 import { GameObject } from "./GameObject.js";
 
 /**

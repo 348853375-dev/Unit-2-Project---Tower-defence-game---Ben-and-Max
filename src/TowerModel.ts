@@ -1,3 +1,4 @@
+// BEN WHITMAN
 import { GameObject } from "./GameObject.js";
 import { DamageableUnit } from "./DamageableUnit.js";
 import { Projectile } from "./projectileClass.js";

@@ -1,3 +1,5 @@
+// BEN WHITMAN
+// all of the classes imported that are needed for the fragger tower to function properly
 import { TowerModel } from "./TowerModel.js";
 import { DamageableUnit } from "./DamageableUnit.js";
 import { Projectile } from "./projectileClass.js";
@@ -44,16 +46,8 @@ class FraggerTowerModel extends TowerModel {
 
         const projectileSize: number = 12;
 
-        return new Projectile(
-            this.centerX - projectileSize / 2,
-            this.centerY - projectileSize / 2,
-            projectileSize,
-            projectileSize,
-            this._damage,
-            5,
-            target,
-            Projectile.TYPE_AOE,
-            70
+        return new Projectile(this.centerX - projectileSize / 2, this.centerY - projectileSize / 2, projectileSize, projectileSize, this._damage,
+            5, target, Projectile.TYPE_AOE, 70
         );
     }
 }

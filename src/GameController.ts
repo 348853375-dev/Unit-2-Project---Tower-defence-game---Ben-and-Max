@@ -1,3 +1,5 @@
+// BEN WHITMAN
+// all of the neccessary imports needed for the entire Game to function properly
 import { GameModel } from "./GameModel.js";
 import { GameView } from "./GameView.js";
 import { TowerController } from "./TowerController.js";
@@ -124,14 +126,7 @@ class GameController {
         const lastPoint: { x: number; y: number } = waypoints[waypoints.length - 1]!;
         const size: number = this._worldController.tileLength;
 
-        return new BaseController(
-            lastPoint.x - size / 2,
-            lastPoint.y - size / 2,
-            size,
-            size,
-            100,
-            "images/crate.png"
-        );
+        return new BaseController(lastPoint.x - size / 2, lastPoint.y - size / 2, size, size, 100, "images/crate.png");
     }
 
     /**
