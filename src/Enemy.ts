@@ -1,6 +1,7 @@
 import { GameObject } from "./GameObject.js";
 import { Drawable } from "./drawable.js";
 import { DamageableUnit } from "./DamageableUnit.js";
+import { GameImage } from "./GameImage.js";
 
 /**
  * Enemy is the abstract parent class for every robot in the game.
@@ -19,8 +20,11 @@ abstract class Enemy extends GameObject implements DamageableUnit, Drawable {
     private _alive: boolean;
     private _moneyValue: number;
 
-    /** The color used to draw this enemy */
+    /** The color used to draw this enemy if its image is missing */
     protected _color: string;
+
+    /** The enemy's image */
+    private _gameImage: GameImage;
 
     /** The list of points the enemy walks through, in order */
     private _path: { x: number; y: number }[];
@@ -43,7 +47,8 @@ abstract class Enemy extends GameObject implements DamageableUnit, Drawable {
      * @param health The enemy's starting health
      * @param speed The enemy's movement speed in pixels per frame
      * @param moneyValue The money the player earns when this enemy dies
-     * @param color The color used to draw this enemy
+     * @param color The fallback color if the image has not loaded
+     * @param filename The image file used for this enemy
      */
     constructor(
         x: number,
@@ -53,7 +58,8 @@ abstract class Enemy extends GameObject implements DamageableUnit, Drawable {
         health: number,
         speed: number,
         moneyValue: number,
-        color: string
+        color: string,
+        filename: string
     ) {
         super(x, y, width, height);
 
@@ -63,6 +69,7 @@ abstract class Enemy extends GameObject implements DamageableUnit, Drawable {
         this._moneyValue = Math.max(0, moneyValue);
         this._alive = true;
         this._color = color;
+        this._gameImage = new GameImage(filename, this);
 
         this._path = [];
         this._pathIndex = 0;
@@ -196,7 +203,10 @@ abstract class Enemy extends GameObject implements DamageableUnit, Drawable {
     }
 
     /**
-     * Draws the enemy as a colored square with a health bar above it.
+     * Draws the enemy with a health bar above it.
+     *
+     * If the enemy's image has loaded, the image is drawn. Otherwise a
+     * colored square is drawn instead, so the enemy is never invisible.
      *
      * Precondition: canvas and ctx must exist.
      * Postcondition: The enemy and its health bar are drawn.
@@ -207,9 +217,19 @@ abstract class Enemy extends GameObject implements DamageableUnit, Drawable {
     public draw(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D): void {
         ctx.save();
 
-        // The enemy's body.
-        ctx.fillStyle = this._color;
-        ctx.fillRect(this._x, this._y, this._width, this._height);
+        // The enemy's body: image if loaded, colored square if not.
+        if (this._gameImage.complete) {
+            ctx.drawImage(
+                this._gameImage.img,
+                this._x,
+                this._y,
+                this._width,
+                this._height
+            );
+        } else {
+            ctx.fillStyle = this._color;
+            ctx.fillRect(this._x, this._y, this._width, this._height);
+        }
 
         // The health bar background (red).
         const barHeight: number = 4;

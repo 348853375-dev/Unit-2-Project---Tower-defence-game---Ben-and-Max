@@ -49,9 +49,17 @@ class GameImage {
     get img() {
         return this._img;
     }
-    /** True if the image has finished loading */
+    /**
+     * True if the image has finished loading successfully.
+     *
+     * A broken image (for example, a missing file) still reports
+     * complete = true in the browser, but its naturalWidth is 0.
+     * Checking both means broken images correctly fail this check,
+     * so the game falls back to drawing a colored shape instead of
+     * crashing on a broken image.
+     */
     get complete() {
-        return this._img.complete;
+        return this._img.complete && this._img.naturalWidth > 0;
     }
 }
 export { GameImage };

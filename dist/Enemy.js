@@ -1,4 +1,5 @@
 import { GameObject } from "./GameObject.js";
+import { GameImage } from "./GameImage.js";
 /**
  * Enemy is the abstract parent class for every robot in the game.
  *
@@ -15,8 +16,10 @@ class Enemy extends GameObject {
     _speed;
     _alive;
     _moneyValue;
-    /** The color used to draw this enemy */
+    /** The color used to draw this enemy if its image is missing */
     _color;
+    /** The enemy's image */
+    _gameImage;
     /** The list of points the enemy walks through, in order */
     _path;
     /** Which waypoint the enemy is currently walking toward */
@@ -36,9 +39,10 @@ class Enemy extends GameObject {
      * @param health The enemy's starting health
      * @param speed The enemy's movement speed in pixels per frame
      * @param moneyValue The money the player earns when this enemy dies
-     * @param color The color used to draw this enemy
+     * @param color The fallback color if the image has not loaded
+     * @param filename The image file used for this enemy
      */
-    constructor(x, y, width, height, health, speed, moneyValue, color) {
+    constructor(x, y, width, height, health, speed, moneyValue, color, filename) {
         super(x, y, width, height);
         this._health = Math.max(1, health);
         this._maxHealth = this._health;
@@ -46,6 +50,7 @@ class Enemy extends GameObject {
         this._moneyValue = Math.max(0, moneyValue);
         this._alive = true;
         this._color = color;
+        this._gameImage = new GameImage(filename, this);
         this._path = [];
         this._pathIndex = 0;
     }
@@ -160,7 +165,10 @@ class Enemy extends GameObject {
         return !this.isDead();
     }
     /**
-     * Draws the enemy as a colored square with a health bar above it.
+     * Draws the enemy with a health bar above it.
+     *
+     * If the enemy's image has loaded, the image is drawn. Otherwise a
+     * colored square is drawn instead, so the enemy is never invisible.
      *
      * Precondition: canvas and ctx must exist.
      * Postcondition: The enemy and its health bar are drawn.
@@ -170,9 +178,14 @@ class Enemy extends GameObject {
      */
     draw(canvas, ctx) {
         ctx.save();
-        // The enemy's body.
-        ctx.fillStyle = this._color;
-        ctx.fillRect(this._x, this._y, this._width, this._height);
+        // The enemy's body: image if loaded, colored square if not.
+        if (this._gameImage.complete) {
+            ctx.drawImage(this._gameImage.img, this._x, this._y, this._width, this._height);
+        }
+        else {
+            ctx.fillStyle = this._color;
+            ctx.fillRect(this._x, this._y, this._width, this._height);
+        }
         // The health bar background (red).
         const barHeight = 4;
         const barY = this._y - barHeight - 2;

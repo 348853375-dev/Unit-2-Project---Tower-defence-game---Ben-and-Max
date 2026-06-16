@@ -18,7 +18,7 @@ class Enemy1 extends Enemy {
      * @param y The robot's starting y-coordinate
      */
     constructor(x, y) {
-        super(x, y, 32, 32, 30, 1.0, Enemy1.MONEY_VALUE, "silver");
+        super(x, y, 32, 32, 30, 1.0, Enemy1.MONEY_VALUE, "silver", "images/robot1.png");
     }
 }
 export { Enemy1 };

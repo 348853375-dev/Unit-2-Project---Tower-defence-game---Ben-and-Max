@@ -39,7 +39,7 @@ class Boss extends Enemy {
      * @param y The Boss's starting y-coordinate
      */
     constructor(x, y) {
-        super(x, y, 56, 56, 1200, 0.4, Boss.MONEY_VALUE, "darkorchid");
+        super(x, y, 56, 56, 1200, 0.4, Boss.MONEY_VALUE, "darkorchid", "images/boss.png");
     }
     /**
      * Moves the Boss one frame along its path.

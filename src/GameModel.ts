@@ -12,10 +12,10 @@ import { Projectile } from "./projectileClass.js";
  */
 class GameModel {
     /** The money the player starts the game with */
-    public static readonly STARTING_MONEY: number = 100;
+    public static readonly STARTING_MONEY: number = 300;
 
     /** The lives the player starts the game with */
-    public static readonly STARTING_LIVES: number = 3;
+    public static readonly STARTING_LIVES: number = 4;
 
     /** How long the freeze ability lasts, in milliseconds */
     public static readonly FREEZE_DURATION: number = 5000;

@@ -8,9 +8,9 @@
  */
 class GameModel {
     /** The money the player starts the game with */
-    static STARTING_MONEY = 100;
+    static STARTING_MONEY = 300;
     /** The lives the player starts the game with */
-    static STARTING_LIVES = 3;
+    static STARTING_LIVES = 4;
     /** How long the freeze ability lasts, in milliseconds */
     static FREEZE_DURATION = 5000;
     /** What the freeze ability costs to use */
